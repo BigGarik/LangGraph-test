@@ -27,8 +27,11 @@ llm = ChatOpenAI(
     api_key=os.getenv("OPENAI_API_KEY")
 ).bind_tools(tools)
 
+def chatbot(state):
+    return {"messages": [llm.invoke(state["messages"])]}
+
 graph = StateGraph(MessagesState)
-graph.add_node("chatbot", lambda state: {"messages": [llm.invoke(state["messages"])]})
+graph.add_node("chatbot", chatbot)
 graph.add_node("tools", ToolNode(tools))
 graph.add_edge(START, "chatbot")
 graph.add_conditional_edges("chatbot", tools_condition)
