@@ -1,19 +1,17 @@
 import os
 from datetime import datetime
-from typing import Dict
 
-from langchain_core.messages import HumanMessage, AIMessage
+from dotenv import load_dotenv
 from langchain_core.tools import tool
 from langchain_openai import ChatOpenAI
 from langgraph.graph import MessagesState, StateGraph, START
 from langgraph.prebuilt import ToolNode, tools_condition
-from dotenv import load_dotenv
 
 load_dotenv()
 
 
 @tool
-def get_current_time() -> Dict[str, str]:
+def get_current_time() -> dict:
     """Return the current UTC time in ISO-8601 format.
     Example → {"utc": "2025-05-21T06:42:00Z"}
     """
